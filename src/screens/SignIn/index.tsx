@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image } from 'react-native';
 
 import { Button } from '../../components/Button';
@@ -8,6 +9,12 @@ import IllustrationImg from '../../assets/illustration.png'
 import { styles } from './styles';
 
 export function SignIn () {
+  const { navigate } = useNavigation();
+
+  function handleSignIn() {
+    navigate('Home');
+  }
+
   return (
     <View style={styles.container}>
       <Image
@@ -25,7 +32,10 @@ export function SignIn () {
           Crie grupos para jogar seus games{`\n`}favoritos com seus amigos
         </Text>
 
-        <Button title="Entrar com Discord" activeOpacity={0.7} />
+        <Button
+          title="Entrar com Discord"
+          onPress={handleSignIn}
+        />
       </View>
     </View>
   )
