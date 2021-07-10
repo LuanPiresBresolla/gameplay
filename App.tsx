@@ -25,7 +25,7 @@ export default function App() {
   return (
     <Background>
       <Routes />
-      <StatusBar style="auto" />
+      <StatusBar style="light" translucent />
     </Background>
   );
 }
