@@ -31,7 +31,55 @@ export function Home() {
       description: 'E hoje que vamos chegar ao challenger sem perder uma partida da md10'
     },
     {
-      id: '2',
+      id: '222',
+      guild: {
+        id: '1',
+        name: 'Lendarios',
+        icon: null,
+        owner: true,
+      },
+      category: '1',
+      date: '23/06 as 20:40',
+      description: 'E hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '24',
+      guild: {
+        id: '1',
+        name: 'Lendarios',
+        icon: null,
+        owner: true,
+      },
+      category: '1',
+      date: '23/06 as 20:40',
+      description: 'E hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '23',
+      guild: {
+        id: '1',
+        name: 'Lendarios',
+        icon: null,
+        owner: true,
+      },
+      category: '1',
+      date: '23/06 as 20:40',
+      description: 'E hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '22',
+      guild: {
+        id: '1',
+        name: 'Lendarios',
+        icon: null,
+        owner: true,
+      },
+      category: '1',
+      date: '23/06 as 20:40',
+      description: 'E hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '21',
       guild: {
         id: '1',
         name: 'Lendarios',
@@ -71,15 +119,15 @@ export function Home() {
           hasCheckBox
         />
 
-        <View style={styles.content}>
-          <ListHeader title="Partidas agendadas" subTitle="Total 6" />
+        <ListHeader title="Partidas agendadas" subTitle="Total 6" />
 
-          <FlatList
+        <FlatList
             data={appointments}
             keyExtractor={item => item.id}
             style={styles.matchs}
             showsHorizontalScrollIndicator={false}
             ItemSeparatorComponent={ListDivider}
+            contentContainerStyle={{ paddingBottom: 69 }}
             renderItem={({ item }) => (
               <Appointment
                 data={item}
@@ -87,7 +135,6 @@ export function Home() {
               />
             )}
           />
-        </View>
       </View>
     </Background>
   )
