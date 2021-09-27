@@ -1,7 +1,13 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import React, { createContext, ReactNode, useContext, useState, useEffect } from 'react';
 import * as AuthSession from 'expo-auth-session';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api } from '../services/api';
-import { CDN_IMAGE, CLIENT_ID, REDIRECT_URI, RESPONSE_TYPE, SCOPE } from '../config/discordAuth';
+
+const { CDN_IMAGE } = process.env;
+const { CLIENT_ID } = process.env;
+const { REDIRECT_URI } = process.env;
+const { RESPONSE_TYPE } = process.env;
+const { SCOPE } = process.env;
 
 type User = {
   id: string;
@@ -35,6 +41,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState({} as User);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    loadUserStorage();
+  }, []);
+
+  async function loadUserStorage() {
+    const storage = await AsyncStorage.getItem('@gameplay:user');
+
+    if (storage) {
+      const userParse = JSON.parse(storage) as User;
+      api.defaults.headers.authorization = `Bearer ${userParse.token}`;
+      setUser(userParse);
+    }
+  }
+
   async function signIn() {
     try {
       setLoading(true);
@@ -51,11 +71,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         userInfo.data.avatar = `${CDN_IMAGE}/avatars/${userInfo.data.id}/${userInfo.data.avatar}.png`;
 
-        setUser({
+        const userData = {
           ...userInfo.data,
           firstName,
           token: params.access_token,
-        });
+        };
+
+        await AsyncStorage.setItem('@gameplay:user', JSON.stringify(userData));
+
+        setUser(userData);
       }
     } catch {
       throw new Error();
